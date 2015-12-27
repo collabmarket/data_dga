@@ -14,4 +14,7 @@ for r in df.each_index()
     db.bajar_excel()
 end
 
+print "db list of methods: " + (db.methods - Object.methods).to_s + "\n"
+print "db.a0 list of methods: " + (db.a0.methods - Object.methods).to_s + "\n"
+
 Webdrone.irb_console
