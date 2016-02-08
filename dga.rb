@@ -4,10 +4,7 @@ class DgaData
   attr_accessor :a0
   
   def initialize
-    profile = Selenium::WebDriver::Firefox::Profile.new
-    profile['startup.homepage_welcome_url.additional'] = 'about:blank'
-    profile['browser.helperApps.neverAsk.saveToDisk'] = 'images/jpeg, application/pdf, application/octet-stream, application/download, application/vnd.ms-excel'
-    @a0 = Webdrone.create browser: :firefox, timeout: 10, firefox_profile: profile
+    @a0 = Webdrone.create browser: :firefox, timeout: 10
   end
   
   def inicio
