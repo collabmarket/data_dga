@@ -4,7 +4,7 @@ class DgaData
   attr_accessor :a0
   
   def initialize
-    @a0 = Webdrone.create browser: :firefox, timeout: 10
+    @a0 = Webdrone.create browser: :firefox, timeout: 10, error: :ignore
   end
   
   def inicio
