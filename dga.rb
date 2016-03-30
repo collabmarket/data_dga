@@ -15,25 +15,16 @@ class DgaData
   
   def marcar_estacion(nombre)
     @a0.form.set       "estacion1", nombre
+    @a0.wait.time        1
   end
   
-  def marcar_datos(a1: false, a2: false, a3: false, a4: false, 
-                   b1: false, b2: false, b3: false, b4: false)
-    @a0.clic.css       "input[name='chk_estacion1a']", n:1     if a1
-    @a0.clic.css       "input[name='chk_estacion1a']", n:2     if a2
-    @a0.clic.css       "input[name='chk_estacion1a']", n:3     if a3
-    @a0.clic.css       "input[name='chk_estacion1a']", n:4     if a4
-    @a0.clic.css       "input[name='chk_estacion1b']", n:1     if b1
-    @a0.clic.css       "input[name='chk_estacion1b']", n:2     if b2
-    @a0.clic.css       "input[name='chk_estacion1b']", n:3     if b3
-    @a0.clic.css       "input[name='chk_estacion1b']", n:4     if b4
+  def marcar_datos(letra,num)
+    @a0.clic.css       "input[name='chk_estacion1#{letra}']", n: num
   end
   
-  def marcar_periodo(d1: false, w1: false, m1: false, m3: false)
-    @a0.clic.css       "input[name='period']", n:1     if d1
-    @a0.clic.css       "input[name='period']", n:2     if m3
-    @a0.clic.css       "input[name='period']", n:3     if w1
-    @a0.clic.css       "input[name='period']", n:5     if m1
+  def marcar_periodo(period)
+    aux = {'d1' => 1, 'm3' => 2, 'w1' => 3, 'm1' => 5}
+    @a0.clic.css       "input[name='period']", n: aux[period]
   end
   
   def marcar_rango(ini, fin)
@@ -42,9 +33,9 @@ class DgaData
     @a0.form.set         'fecha_finP', fin
   end
   
-  def marcar_tipo(insta: false, sinop: false)
-    @a0.clic.css       "input[name='tiporep']", n:1     if insta
-    @a0.clic.css       "input[name='tiporep']", n:2     if sinop
+  def marcar_tipo(tipo)
+    aux = {'insta' => 1, 'sinop' => 2}
+    @a0.clic.css       "input[name='tiporep']", n: aux[tipo]
   end
   
   def bajar_excel
