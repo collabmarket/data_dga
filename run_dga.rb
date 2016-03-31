@@ -13,6 +13,6 @@ run_test = yesno("Run Tests?", 'y')
 run_data = yesno("Get all data?", 'n')
 
 yesno("Inicio...")
-load './test_dga.rb' if run_data
+load './test_dga.rb' if run_test
 load './get_data.rb' if run_data
 yesno("Finalizado")
