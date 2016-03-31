@@ -4,16 +4,21 @@ class DgaData
   attr_accessor :a0
   
   def initialize
-    @a0 = Webdrone.create browser: :firefox, timeout: 10, error: :ignore
+    @a0 = Webdrone.create browser: :firefox, timeout: 3, error: :ignore
   end
   
   def inicio
     @a0.open.url       'http://dgasatel.mop.cl/'
     @a0.clic.on        'Ingrese Aquí'
     @a0.clic.on        'Entrar'
+    @a0.wait.time        1
   end
   
   def marcar_estacion(nombre)
+    url = 'http://dgasatel.mop.cl/filtro_paramxestac.asp'
+    # URL of the current page
+    curl = @a0.exec.script 'return location.href'
+    inicio()      if url != curl
     @a0.form.set       "estacion1", nombre
     @a0.wait.time        1
   end
