@@ -1,20 +1,18 @@
-require 'daru'
-require_relative 'dga'
+# Run all the scripts
 
-df = Daru::DataFrame.from_excel('data.xls')
-db = DgaData.new
-
-for r in df.each_index()
-    db.inicio()
-    name = df[:VALUE][r]
-    db.marcar_estacion(name)
-    db.marcar_datos(a1: true)
-    db.marcar_periodo(m3: true)
-    db.marcar_tipo(sinop: true)
-    db.bajar_excel()
+def yesno(prompt = 'Continue?', default = 'y')
+    alt = 'n' if default == 'y'
+    alt = 'y' if default == 'n'
+    q = "#{prompt}  [#{default}]/#{alt}: "
+    input = [(print q), gets.rstrip.downcase][1]
+    input = default if input.empty?
+    return input == 'y'
 end
 
-print "db list of methods: " + (db.methods - Object.methods).to_s + "\n"
-print "db.a0 list of methods: " + (db.a0.methods - Object.methods).to_s + "\n"
+run_test = yesno("Run Tests?", 'y')
+run_data = yesno("Get all data?", 'n')
 
-Webdrone.irb_console
+yesno("Inicio...")
+load './test_dga.rb' if run_data
+load './get_data.rb' if run_data
+yesno("Finalizado")
