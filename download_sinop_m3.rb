@@ -23,15 +23,18 @@ b = (1..17).to_a
 b = b.zip(['b'] * b.size)
 lista = a + b
 
+tmpdir = Dir.pwd + '/' + 'tmp/'
 descargas = Dir.pwd + '/' + db.a0.conf.outdir + '/'
-rawdata = Dir.pwd + '/rawdata/'
+rawdata = tmpdir + 'sinop_m3/'
 
+#Crea directorio tmp si no existe
+FileUtils.mkdir(tmpdir) if not File.exist?(tmpdir)
 #Crea directorio rawdata si no existe
 FileUtils.mkdir(rawdata) if not File.exist?(rawdata)
 # Descarga datos para todas las estaciones
 all = df.index.entries
 lastrow = 1
-lastrowfile = 'tmp/lastrow.txt'
+lastrowfile = tmpdir + 'lastrow_sinop_m3.txt'
 # Si existe lastrow.txt empieza desde ultima estacion descargada
 lastrow = (File.open(lastrowfile, 'rb') { |f| f.read }).to_i if File.exist?(lastrowfile)
 for i in all[lastrow..-1]
