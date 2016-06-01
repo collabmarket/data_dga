@@ -38,8 +38,5 @@ end
 # stations.csv todas las estaciones con datos revisado
 df.write_csv('stations.csv')
 
-
 # Close Browser
-#~ db.a0.quit
-
-Webdrone.irb_console
+db.a0.quit
