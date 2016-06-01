@@ -9,7 +9,7 @@ today = DateTime.now
 df = Daru::DataFrame.from_csv 'stations.csv'
 db = DgaData.new
 db.inicio()
-# Espera 1 seg en caso marcar_datos retorne nil
+# Espera 3 seg en caso marcar_datos retorne nil
 db.a0.conf.timeout = 3
 # Lista indices datos
 a = (1..18).to_a
