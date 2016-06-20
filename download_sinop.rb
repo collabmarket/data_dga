@@ -71,7 +71,7 @@ for i in all[lastrow..-1]
                 file = "sinop_#{id}_#{ind}#{j}_#{yearini}.xls"
                 db.marcar_rango(dini, dfin)
                 db.bajar_excel()
-                db.a0.wait.time 3
+                #~ db.a0.wait.time 3
                 if File.exist?(descargas + "reporte_sinoptico.xls")
                     FileUtils.mv(descargas + "reporte_sinoptico.xls", rawdata + file)
                     # Datos hasta 1999
