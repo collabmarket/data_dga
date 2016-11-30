@@ -1,3 +1,4 @@
 *.py[cod]
 webdrone_output
 tmp
+rawdata/sinop/

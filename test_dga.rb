@@ -1,8 +1,9 @@
+#gem "selenium-webdriver", "= 2.53.4"
 require 'daru'
 require 'fileutils'
 require_relative 'dga'
 
-db = DgaData.new
+db = DgaData.new logger: false
 db.inicio()
 print "db list of methods: " + (db.methods - Object.methods).to_s + "\n"
 print "db.a0 list of methods: " + (db.a0.methods - Object.methods).to_s + "\n"

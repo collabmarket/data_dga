@@ -3,13 +3,13 @@ require 'webdrone'
 class DgaData  
   attr_accessor :a0
   
-  def initialize
+  def initialize(**kargs)
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile['startup.homepage_welcome_url.additional'] = 'about:blank'
     profile['browser.download.folderList'] = 2
     profile['browser.download.manager.showWhenStarting'] = false
     profile['browser.helperApps.neverAsk.saveToDisk'] = "images/jpeg, application/pdf, application/octet-stream, application/download, application/vnd.ms-excel"
-    @a0 = Webdrone.create browser: :firefox, timeout: 3, error: :ignore, firefox_profile: profile
+    @a0 = Webdrone.create timeout: 3, error: :ignore, browser: :firefox, firefox_profile: profile, **kargs
   end
   
   def inicio
