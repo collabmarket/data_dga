@@ -1,4 +1,5 @@
 *.py[cod]
 webdrone_output
 tmp
-rawdata/sinop/
+rawdata/sinop
+.ipynb_checkpoints
