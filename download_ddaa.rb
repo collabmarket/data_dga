@@ -21,13 +21,13 @@ db.a0.conf.timeout = 3
 
 # Descarga archivos
 for i in all
-    db.a0.open.url          df[0][i]
+    db.a0.open.url          df['url'][i]
     db.a0.wait.time         3
 end
 
 # Mueve archivos descargados
 for i in all
-    filename = df[1][i]
+    filename = df['filename'][i]
     if File.exist?(descargas + filename)
         FileUtils.mv(descargas + filename, rawdata + filename)
     end

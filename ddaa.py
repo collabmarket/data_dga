@@ -15,7 +15,7 @@ float_columns = [u'Caudal AnualProm',
 
 ## Not used columns
 drop_columns =  [u'Referencia a puntos conocidos de captación', 
-                 u'Referencia a puntos conocidos de restitución',
+                 u'Referencia a puntos conocidos de restitución'
                 ]
 
 short = dict(caudal=u'Caudal AnualProm', 
@@ -24,8 +24,12 @@ short = dict(caudal=u'Caudal AnualProm',
              naturaleza=u'Naturaleza del Agua', 
              ejercicio=u'Ejercicio del Derecho', 
              fuente=u'Clasificación Fuente', 
-             fecha=u'Fecha de Resolución Envío al Juez Inscripción C.B.R.'
             )
+
+col_index = u'Fecha de Resolución Envío al Juez Inscripción C.B.R.'
+
+def open_meta(filename='ddaa.csv'):
+    return pd.read_csv(filename, index_col='id')
 
 def open_ddaa(filename):
     ## Open file
@@ -45,16 +49,16 @@ def open_ddaa(filename):
     ## Strip all unicode
     aux = df.select_dtypes(include=['object'])
     df.loc[:, aux.columns] = aux.applymap(lambda x: x.strip())
-    ## Replace comma with point the float
+    ## Replace comma with point then float
     f = lambda x: pd.to_numeric(x.str.replace(',','.'))
     aux = df.loc[:, float_columns]
     df.loc[:, aux.columns] = aux.apply(f, axis=1)
     ## Date to datetime
     f = lambda x: pd.to_datetime(x, dayfirst=True)
-    aux = df[[short['fecha']]]
+    aux = df[[col_index]]
     df.loc[:, aux.columns] = aux.apply(f, axis=1)
     ## Date to index
-    df.set_index(short['fecha'], drop=True, inplace=True)
+    df.set_index(col_index, inplace=True)
     return df
 
 def top_ddaa(df, n=25):
@@ -62,13 +66,24 @@ def top_ddaa(df, n=25):
     columns = [short['usuario'],short['caudal']]
     return df.sort_values(by, ascending=False).head(n)[columns]
 
+def busca(df, pattern, column=u'Nombre Solicitante'):
+    return df[df.loc[:,column].str.contains(pattern)].loc[:,short.values()]
+
+def zoom(ax, factor=.1):
+    yi, yf = ax.get_ylim()
+    xi, xf = ax.get_xlim()
+    dx = (xf - xi)
+    dy = (yf - yi)
+    xi -= dx * factor
+    xf += dx * factor
+    yi -= dy * factor
+    yf += dy * factor
+    ax.set_xlim([xi,xf])
+    ax.set_ylim([yi,yf])
 
 if __name__ == '__main__':
     try:
         get_ipython().magic(u'matplotlib inline')
     except NameError:
         print "IPython console not available."
-    
-    filename = 'rawdata/www.dga.cl/Derechos_Concedidos_V_Region.xls'
-    df = open_ddaa(filename)
 
