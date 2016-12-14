@@ -34,10 +34,14 @@ variables = {   'calidad' => calidad, 'fluvio' => fluvio,
 
 def inicio
     $a0.open.url     'http://snia.dga.cl/BNAConsultas/reportes'
+    $a0.wait.time        3
 end
 
 def buscar
     $a0.clic.on      'filtroscirhform:buscar'
+    $a0.wait.time        3
+    error = ($a0.find.id "popupInfoMessage_container") != nil
+    $a0.clic.xpath '//*[@id="popupInfoMessage_header_controls"]' if error
 end
 
 def limpiar
@@ -63,10 +67,12 @@ end
 
 def marcar_region(reg)
     $a0.form.set         'filtroscirhform:region', reg
+    $a0.wait.time        3
 end
 
 def marcar_cuenca(cuenca)
     $a0.form.set         'filtroscirhform:cuenca', cuenca
+    $a0.wait.time        3
 end
 
 #~ a0.clic.xpath   '//*[@id="filtroscirhform:j_idt28:header"]'
@@ -184,9 +190,12 @@ inicio
 
 # Marcar todas las regiones
 limpiar
+marcar_reporte(reportes['pozos'])
+marcar_variable(variables['pozos'].each_value.to_a[0])
 buscar_por('region')
-regiones.each do |reg|
+regiones[1..-1].each do |reg|
     marcar_region(reg)
+    buscar
 end
 
 Webdrone.irb_console
