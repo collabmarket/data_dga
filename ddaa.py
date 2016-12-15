@@ -1,9 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
+
 plt.style.use('ggplot')
+
+local_dir = os.path.dirname(__file__)
+meta_filename = os.path.join(local_dir, 'ddaa.csv')
 
 ## Float columns
 float_columns = [u'Caudal AnualProm', 
@@ -28,10 +33,13 @@ short = dict(caudal=u'Caudal AnualProm',
 
 col_index = u'Fecha de Resolución Envío al Juez Inscripción C.B.R.'
 
-def open_meta(filename='ddaa.csv'):
+def open_meta(filename=meta_filename):
     return pd.read_csv(filename, index_col='id')
 
-def open_ddaa(filename):
+def open_ddaa(filename, abs_path=False):
+    if not abs_path:
+        ## Make absolute path
+        filename = os.path.join(local_dir, filename)
     ## Open file
     karg_xls = dict(skiprows=6)
     df = pd.read_excel(filename, **karg_xls)
