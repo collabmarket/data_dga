@@ -3,6 +3,8 @@ webdrone script download hydrological data from DGA Chile
 
 ### Análisis de Derechos de agua otorgados en Chile
 
+Corre las visualizaciones en la nube con [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/collabmarket/data_dga)
+
 - [Ver Región I](http://nbviewer.jupyter.org/github/collabmarket/data_dga/blob/master/notebooks/ddaa-I.ipynb)
 - [Ver Región II](http://nbviewer.jupyter.org/github/collabmarket/data_dga/blob/master/notebooks/ddaa-II.ipynb)
 - [Ver Región II](http://nbviewer.jupyter.org/github/collabmarket/data_dga/blob/master/notebooks/ddaa-III.ipynb)
